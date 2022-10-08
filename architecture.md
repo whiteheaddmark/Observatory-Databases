@@ -41,7 +41,9 @@ The general strategy with REST APIs is to organize the API design around resourc
 <div style="text-align: center;">
 
 ![REST Services](/images/Services.png)
-
+<p align="center">
+  <img src="https://github.com/whiteheaddmark/Observatory-Databases/blob/master/images/Services.png?raw=true">
+</p>
 </div>
 
 <figcaption style="text-align: center;">Figure 1 Generic REST services backed by database, file system or non-NRAO resource.</figcaption>
