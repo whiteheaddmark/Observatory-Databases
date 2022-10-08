@@ -1,10 +1,16 @@
+<h1 style="text-align: center;">NRAO Data Operations Interfaces</h1>
 
 # Overview
+NRAO uses internal and external data sources to manage and process radio telescope measurements. An increase over time in the number of supported telescopes and variety of data sources drives the need to provide consistent and manageable interfaces to operational data for various stakeholders. This document outlines the known requirements for such interfaces and offers a high-level architectural solution. The proposed architecture is intended to support additional detailed design activities prior to development.
 
-NRAO uses internal and external data sources to manage and process radio telescope measurements. An increase over time in the number of supported telescopes and varieties of data sources is driving the need to provide a consistent and manageable interface to operational data for a variety of stakeholders. This document outlines the known requirements for such an interface and offers a high-level architectural solution. The proposed architecture is intended to support additional detailed design activities prior to development.
+# Approach
+DMS utilizes three architecture designations:
+- Conceptual - The most abstract architecture model, primarily focused on structures, highlights relationships between key concepts (not how they work), contains no implementation details.
+- Logical - This architecture model is broad in scope, can model high and low levels of detail, captures dynamic behavior. Does not identify particular technology or environment unless it is advantageous to do so.
+- Physical - This is the least abstract model, detail oriented, includes entities that point to real life software, services, servers, systems, networks, etc.
 
 # General Requirements
-This section outlines the general requirements. Additional requirements analysis would be needed to support detailed design.
+This section outlines the general requirements. Additional requirements analysis will be needed to support detailed design.
 
 - The interface and supporting infrastructure will be created and maintained by DMS.
 - The interface and supporting infrastructure must provide remote access to NRAO and non-NRAO data sources.
