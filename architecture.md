@@ -42,8 +42,8 @@ The general strategy with REST APIs is to organize the API design around resourc
   <img src="https://github.com/whiteheaddmark/Observatory-Databases/blob/master/images/Services.png?raw=true">
 </p>
 
-<figcaption style="text-align: center;">Figure 1 Generic REST services backed by database, file system or non-NRAO resource.</figcaption>
-<br>
+<div align="center">Figure 1 Generic REST services backed by database, file system or non-NRAO resource.</div>
+</br>
 This general strategy raises the question: how should REST API clients access individual services?
 
 ## Direct Client-to-Service
