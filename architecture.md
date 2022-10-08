@@ -49,11 +49,12 @@ This general strategy raises the question: how should REST API clients access in
 ## Direct Client-to-Service
 A possible approach is to use a direct client-to-service communication architecture. In this approach, a client makes requests directly to services via a URL. In a production environment the URL would map to some entity that provides load balancing and IAM but that is transparent from the logical architecture point of view.
 
-<div style="text-align: center;">
+<p align="center">
+  <img src="https://github.com/whiteheaddmark/Observatory-Databases/blob/master/images/Client-to-Service.png?raw=true">
+</p>
 
-![REST Services](/images/Client-to-Service.png)
-
-</div>
+<div align="center">Figure 2 Client-to-service communication architecture.</div>
+</br>
 
 Depending on how complex the system becomes, direct communication could face difficulties in the future:
 - This approach could increase complexity and latency on the client.
@@ -64,11 +65,12 @@ Depending on how complex the system becomes, direct communication could face dif
 ## API Gateway Pattern
 An alternative approach called the API Gateway Pattern is a more general solution to the problem of how clients can access services. An API gateway is the single entry point for all clients and handles requests in one of two ways: some requests are simply routed to the appropriate service while other requests are fanned out to multiple services. 
 
-<div style="text-align: center;">
+<p align="center">
+  <img src="https://github.com/whiteheaddmark/Observatory-Databases/blob/master/images/SingleAPIGateway.png?raw=true">
+</p>
 
-![REST Services](/images/SingleAPIGateway.png)
-
-</div>
+<div align="center">Figure 3 Single API Gateway Pattern.</div>
+</br>
 
 This pattern introduces more flexibility into the design by:
 - Insulating clients from how the system is partitioned into services.
