@@ -38,13 +38,9 @@ REST frameworks help developers construct REST APIs and usually offer the follow
 ## REST Data Services
 The general strategy with REST APIs is to organize the API design around resources and provide access to the resources via services. Services model entities and the operations that a client can perform on those entities while not exposing the client to the internal implementation. Initially, there will likely be a one-to-one mapping between a service and a data source. However, a resource does not have to be based on a single data item. A service could internally aggregate data items from a variety of sources or via multiple mechanisms and present to the client a single entity.
 
-<div style="text-align: center;">
-
-![REST Services](/images/Services.png)
 <p align="center">
   <img src="https://github.com/whiteheaddmark/Observatory-Databases/blob/master/images/Services.png?raw=true">
 </p>
-</div>
 
 <figcaption style="text-align: center;">Figure 1 Generic REST services backed by database, file system or non-NRAO resource.</figcaption>
 <br>
