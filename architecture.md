@@ -17,7 +17,7 @@ This section outlines the general requirements. Additional requirements analysis
 - The interface and supporting infrastructure will be created and maintained by DMS.
 - The interface and supporting infrastructure must provide remote access to NRAO and non-NRAO data sources.
 - The interface must support access to versioned data sources.
-- Access to the interface must support identity and access management (IAM) best practices.
+- Access mechanisms to the interface must support identity and access management (IAM) best practices and utlized DMS IAM technologies.
 - The interface must support JSON-formatted responses.
 - The system is not required to support "Big Data"-scale volumes or velocities.
 - The infrastructure must support standard reliability mechanisms to provide and maintain reliable access to data sources. 
@@ -44,7 +44,7 @@ REST frameworks help developers construct REST APIs and usually offer the follow
 
 # Logical Architecture
 ## REST Data Services
-The general strategy with REST APIs is to organize the API design around resources and provide access to the resources via services. Services model entities and operations that a client can perform on those entities while encapsulating the internal implementation. Initially for this system, there will likely be a one-to-one mapping between a service and a data source. However, a resource does not have to be based on a single data item. A service could internally aggregate data items from a variety of sources and present the aggregate entity to the client.
+The general strategy with REST APIs is to organize the API design around resources and provide access to the resources via services. Services model entities and operations clients can perform on those entities while encapsulating the internal implementation. Initially for this system, there will likely be a one-to-one mapping between a service and a data source. However, a resource does not have to be based on a single data item. A service could internally aggregate data items from a variety of sources and present the aggregate entity to the client.
 
 <p align="center">
   <img src="https://github.com/whiteheaddmark/Observatory-Databases/blob/master/images/Services.png?raw=true">
@@ -98,7 +98,7 @@ API Gateway Pattern drawbacks include:
 Multiple gateways, each dedicated to certain types of clients, could be added in the future if requirements warrant.
 
 # API Design Considerations
-The current best practice for building REST APIs is called “API-first development” which includes identifying API stakeholders, identifying key services, and designing API contracts. This section is intended to serve as a checklest of API design elements that should be considered during the API contract detailed design phase. A clear understanding of the various stakeholders and the similarities and differences between their service requirements is assumed to be an input into the detailed design phase and should include an analysis based on the idea presented in [REST Data Services](#REST-Data-Services).
+The current best practice for building REST APIs is called “API-first development” which includes identifying API stakeholders, identifying key services, and designing API contracts. This section is intended to serve as a checklist of API design elements that should be considered during the API contract detailed design phase. A clear understanding of the various stakeholders and the similarities and differences between their service requirements is assumed to be an input into the detailed design phase and should include an analysis based on the idea presented in [REST Data Services](#REST-Data-Services).
 
 ## API Operations
 HTTP defines a number of methods that assign semantic meaning to a request. Common HTTP methods used by most RESTful web APIs include:
@@ -108,7 +108,7 @@ HTTP defines a number of methods that assign semantic meaning to a request. Comm
 - **PATCH** performs a partial update of a resource. The request body specifies the set of changes to apply to the resource.
 - **DELETE** removes the resource at the specified URI.
 
-Table 1 suggests an analysis structure for API contract design based on common HTTP methods.
+Table 1 suggests an API contract analysis structure for a hypothetical resource based on common HTTP methods.
 
 | Resource | Post | Get | Put | Delete |
 | -------- | ---- | --- | --- | ------ |
@@ -117,23 +117,25 @@ Table 1 suggests an analysis structure for API contract design based on common H
 | /calmodels/1/measurements | Create new measure. for model 1 | Retrieve all measure. for model 1 | Bulk update of measure. for model 1 | Remove all measure. for model 1 |
 <div align="center">Table 1 API contract design structure.</div>   
 
-## API Design
-Avoid creating APIs that simply mirror the internal structure of a database. The purpose of REST is to model entities and the operations that an application can perform on those entities. A client should not be exposed to the internal implementation.
-Entities are often grouped together into collections (orders, customers). A collection is a separate resource from the item within the collection, and should have its own URI.
-Adopt a consistent naming convention in URIs. In general, it helps to use plural nouns for URIs that reference collections. It's a good practice to organize URIs for collections and items into a hierarchy.
-Also consider the relationships between different types of resources and how you might expose these associations.
-Avoid introducing dependencies between the web API and the underlying data sources.
+## API Organization
+The following best practices should guide API organization and design:
+- Adopt a consistent naming convention in URIs.
+- Entities are often grouped together into collections; a collection is a separate resource from the item within the collection and should have its own URI; organize URIs for collections and items into a hierarchy; use plural nouns for URIs that reference collections. 
+- Consider the relationships between different types of resources and how these associations should be exposed.
+- Avoid introducing dependencies between the API and the underlying data sources.
+- Avoid creating APIs that simply mirror the internal structure of a database.
 
 ## API Versions
-How to support data source versioning with API versioning.(?)
-Versioning enables a web API to indicate the features and resources that it exposes, and a client application can submit requests that are directed to a specific version of a feature or resource.
-- No versioning: This is the simplest approach, and may be acceptable for some internal APIs. Significant changes could be represented as new resources or new links. Adding content to existing resources might not present a breaking change as client applications that are not expecting to see this content will ignore it.
-- URI versioning: Each time you modify the web API or change the schema of resources, you add a version number to the URI for each resource. The previously existing URIs should continue to operate as before, returning resources that conform to their original schema.
-- Query String versioning: Rather than providing multiple URIs, you can specify the version of the resource by using a parameter within the query string appended to the HTTP request. This approach has the semantic advantage that the same resource is always retrieved from the same URI, but it depends on the code that handles the request to parse the query string and send back the appropriate HTTP response.
-- Header versioning: Rather than appending the version number as a query string parameter, you could implement a custom header that indicates the version of the resource. This approach requires that the client application adds the appropriate header to any requests, although the code handling the client request could use a default value (version 1) if the version header is omitted.
+Versioning enables an API to indicate the features and resources that it exposes and clients can submit requests that are directed to a specific version of a feature or resource. The API contract design should include a versioning mechanism to handle service or data source changes that could break client logic. 
+
+Included below are the current versioning options to consider:
+- **No versioning** This is the simplest approach and may be acceptable for some internal APIs. Significant changes could be represented as new resources or new links. Adding content to existing resources might not present a breaking change as client applications that are not expecting to see this content will ignore it.
+- **URI versioning** Each API modification or schema change results in a version number update to the URI for each resource. The previously existing URIs should continue to operate as before, returning resources that conform to their original schema.
+- **Query String versioning** Rather than providing multiple URIs, resource versions can be specified via a parameter within the query string appended to the HTTP request. This approach has the semantic advantage that the same resource is always retrieved from the same URI but it relies on the code that handles the request to parse the query string and send back the appropriate HTTP response.
+- **Header versioning** Rather than appending the version number as a query string parameter, custom headers indicate the version of the resource. This approach requires that the client application adds the appropriate header to any requests. The code handling the client request could use a default value (version 1) if the version header is omitted.
 
 ## Authentication and Authorization
-
+DMS plans to adopt a zero trust architecture to satisfy evolving IAM requirements. In the intermediate term, this involves the use of Red Hat Identity Management (based on FreeIPA) and Red Hat SSO (based on Keycloak) which support standard protocols including OpenId Connect, OAuth2, SAML, etc. NRAO data operations interfaces must utilize DMS IAM technologies. DMS maintains a strong preference forleveraging existing IAM libraries when possible and custom development in this area should only be a last resort. Additionally, the API contract detailed design phase should include an analysis of the authentication and authorization requirements for people and programs to access data sources. Finally, the logical design should be updated to include the use of DMS IAM technologies and the IAM parts of the API contract detailed design.
 
 # References
 The content of this document is completely derived from the following sources.
@@ -145,6 +147,3 @@ The content of this document is completely derived from the following sources.
 - [Web Service](https://en.wikipedia.org/wiki/Web_service)
 - [REST API Security](https://stackoverflow.blog/2021/10/06/best-practices-for-authentication-and-authorization-for-rest-apis/)
 - [REST API Design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
-
-
-
