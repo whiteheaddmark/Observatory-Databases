@@ -98,7 +98,24 @@ API Gateway Pattern drawbacks include:
 Multiple gateways, each dedicated to certain types of clients, could be added in the future if requirements warrant.
 
 # API Design Considerations
-The current best practice for building REST APIs is called “API-first development” which includes identifying key services, identifying API stakeholders, and designing API contracts. This section is intended to serve as a checklest of API design elements that should be considered during the API contract detailed design phase. A clear understanding of the various stakeholders and the similarities and differences between their service requirements is assumed to be an input into the detailed design phase and should include an analysis based on the idea presented in [REST Data Services](#REST-Data-Services).
+The current best practice for building REST APIs is called “API-first development” which includes identifying API stakeholders, identifying key services, and designing API contracts. This section is intended to serve as a checklest of API design elements that should be considered during the API contract detailed design phase. A clear understanding of the various stakeholders and the similarities and differences between their service requirements is assumed to be an input into the detailed design phase and should include an analysis based on the idea presented in [REST Data Services](#REST-Data-Services).
+
+## API Operations
+HTTP defines a number of methods that assign semantic meaning to a request. Common HTTP methods used by most RESTful web APIs include:
+- **GET** retrieves a representation of the resource at the specified URI. The body of the response message contains the details of the requested resource.
+- **POST** creates a new resource at the specified URI. The body of the request message provides the details of the new resource. Note that POST can also be used to trigger operations that don't actually create resources.
+- **PUT** either creates or replaces the resource at the specified URI. The body of the request message specifies the resource to be created or updated.
+- **PATCH** performs a partial update of a resource. The request body specifies the set of changes to apply to the resource.
+- **DELETE** removes the resource at the specified URI.
+
+Table 1 suggests an analysis structure for API contract design based on common HTTP methods.
+
+| Resource | Post | Get | Put | Delete |
+| -------- | ---- | --- | --- | ------ |
+| /calmodels | Create new model | Retrieve all models | Bulk update of models | Remove all models |
+| /calmodels/1 | Error | Retrieve details for model 1 | Update details of model 1 | Remove model 1 |
+| /calmodels/1/measurements | Create new measure. for model 1 | Retrieve all measure. for model 1 | Bulk update of measure. for model 1 | Remove all measure. for model 1 |
+<div align="center">Table 1 API contract design structure.</div>   
 
 ## API Design
 Avoid creating APIs that simply mirror the internal structure of a database. The purpose of REST is to model entities and the operations that an application can perform on those entities. A client should not be exposed to the internal implementation.
@@ -106,21 +123,6 @@ Entities are often grouped together into collections (orders, customers). A coll
 Adopt a consistent naming convention in URIs. In general, it helps to use plural nouns for URIs that reference collections. It's a good practice to organize URIs for collections and items into a hierarchy.
 Also consider the relationships between different types of resources and how you might expose these associations.
 Avoid introducing dependencies between the web API and the underlying data sources.
-
-
-## API Operations
-The HTTP protocol defines a number of methods that assign semantic meaning to a request. The common HTTP methods used by most RESTful web APIs are:
-- GET retrieves a representation of the resource at the specified URI. The body of the response message contains the details of the requested resource.
-- POST creates a new resource at the specified URI. The body of the request message provides the details of the new resource. Note that POST can also be used to trigger operations that don't actually create resources.
-- PUT either creates or replaces the resource at the specified URI. The body of the request message specifies the resource to be created or updated.
-- PATCH performs a partial update of a resource. The request body specifies the set of changes to apply to the resource.
-- DELETE removes the resource at the specified URI.
-
-| Resource | Post | Get | Put | Delete |
-| -------- | ---- | --- | --- | ------ |
-| /calmodels | Create new model | Retrieve all models | Bulk update of models | Remove all models |
-| /calmodels/1 | Error | Retrieve details for model 1 | Update details of model 1 | Remove model 1 |
-| /calmodels/1/measurements | Create new measure. for model 1 | Retrieve all measure. for model 1 | Bulk update of measure. for model 1 | Remove all measure. for model 1 |
 
 ## API Versions
 How to support data source versioning with API versioning.(?)
