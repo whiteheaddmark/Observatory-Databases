@@ -95,10 +95,11 @@ API Gateway Pattern drawbacks include:
 - **Increased response time** Adding the API gateway adds an additional network step.
 - **Increased development time** Developers have to include the gateway in the design, select supporting technologies, and learn how to use them for implementation. 
 
-Multiple gateways, each dedicated to certain types of clients, couldn be added in the future if requirements warrant.
+Multiple gateways, each dedicated to certain types of clients, could be added in the future if requirements warrant.
 
-# API Development Guidelines
-The current best practice for building REST APIs is called “API-first development” which includes identifying key services, identifying API stakeholders, and designing API contracts. Key detailed design considerations are listed below.
+# API Design Considerations
+The current best practice for building REST APIs is called “API-first development” which includes identifying key services, identifying API stakeholders, and designing API contracts. This section is intended to serve as a checklest of API design elements that should be considered during the API contract detailed design phase. A clear understanding of the various stakeholders and the similarities and differences between their service requirements is assumed to be an input into the detailed design phase and should include an analysis based on the idea presented in [REST Data Services](#REST-Data-Services).
+
 ## API Design
 Avoid creating APIs that simply mirror the internal structure of a database. The purpose of REST is to model entities and the operations that an application can perform on those entities. A client should not be exposed to the internal implementation.
 Entities are often grouped together into collections (orders, customers). A collection is a separate resource from the item within the collection, and should have its own URI.
@@ -128,6 +129,10 @@ Versioning enables a web API to indicate the features and resources that it expo
 - URI versioning: Each time you modify the web API or change the schema of resources, you add a version number to the URI for each resource. The previously existing URIs should continue to operate as before, returning resources that conform to their original schema.
 - Query String versioning: Rather than providing multiple URIs, you can specify the version of the resource by using a parameter within the query string appended to the HTTP request. This approach has the semantic advantage that the same resource is always retrieved from the same URI, but it depends on the code that handles the request to parse the query string and send back the appropriate HTTP response.
 - Header versioning: Rather than appending the version number as a query string parameter, you could implement a custom header that indicates the version of the resource. This approach requires that the client application adds the appropriate header to any requests, although the code handling the client request could use a default value (version 1) if the version header is omitted.
+
+## Authentication and Authorization
+
+
 # References
 The content of this document is completely derived from the following sources.
 - [Representational state transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
