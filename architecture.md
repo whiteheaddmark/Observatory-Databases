@@ -1,7 +1,7 @@
 <h1 style="text-align: center;">NRAO Data Operations Interfaces</h1>
 
 # Overview
-NRAO uses internal and external data sources to manage and process radio telescope measurements. An increase over time in the number of supported telescopes and variety of data sources drives the need to provide consistent and manageable interfaces to operational data for various stakeholders. This document outlines the general requirements for such interfaces and offers a high-level architectural solution. The proposed high-level architectureal solution is intended to support detailed design activities prior to development.
+NRAO uses internal and external data sources to manage and process radio telescope measurements. An increase over time in the number of supported telescopes and variety of data sources drives the need to provide consistent and manageable interfaces to operational data for various stakeholders. This document outlines the general requirements for such interfaces and offers a high-level architectural solution. The proposed high-level architectural solution is intended to support detailed design activities prior to development.
 
 # Approach
 DMS utilizes three architecture designations:
@@ -17,7 +17,7 @@ This section outlines the general requirements. Additional requirements analysis
 - The interface and supporting infrastructure will be created and maintained by DMS.
 - The interface and supporting infrastructure must provide remote access to NRAO and non-NRAO data sources.
 - The interface must support access to versioned data sources.
-- Access mechanisms to the interface must support identity and access management (IAM) best practices and utlized DMS IAM technologies.
+- Access mechanisms to the interface must support identity and access management (IAM) best practices and utilize DMS IAM technologies.
 - The interface must support JSON-formatted responses.
 - The system is not required to support "Big Data"-scale volumes or velocities.
 - The infrastructure must support standard reliability mechanisms to provide and maintain reliable access to data sources. 
@@ -135,7 +135,7 @@ Included below are the current versioning options to consider:
 - **Header versioning** Rather than appending the version number as a query string parameter, custom headers indicate the version of the resource. This approach requires that the client application adds the appropriate header to any requests. The code handling the client request could use a default value (version 1) if the version header is omitted.
 
 ## Authentication and Authorization
-DMS plans to adopt a zero trust architecture to satisfy evolving IAM requirements. In the intermediate term, this involves the use of Red Hat Identity Management (based on FreeIPA) and Red Hat SSO (based on Keycloak) which support standard protocols including OpenId Connect, OAuth2, SAML, etc. NRAO data operations interfaces must utilize DMS IAM technologies. DMS maintains a strong preference forleveraging existing IAM libraries when possible and custom development in this area should only be a last resort. Additionally, the API contract detailed design phase should include an analysis of the authentication and authorization requirements for people and programs to access data sources. Finally, the logical design should be updated to include the use of DMS IAM technologies and the IAM parts of the API contract detailed design.
+DMS plans to adopt a zero trust architecture to satisfy evolving IAM requirements. In the intermediate term, this involves the use of Red Hat Identity Management (based on FreeIPA) and Red Hat SSO (based on Keycloak) which support standard protocols including OpenId Connect, OAuth2, SAML, etc. NRAO data operations interfaces must utilize DMS IAM technologies. DMS maintains a strong preference for leveraging existing IAM libraries when possible and custom development in this area should only be a last resort. Additionally, the API contract detailed design phase should include an analysis of the authentication and authorization requirements for people and programs to access data sources. Finally, the logical design should be updated to include the use of DMS IAM technologies and the IAM parts of the API contract detailed design.
 
 # References
 The content of this document is completely derived from the following sources.
