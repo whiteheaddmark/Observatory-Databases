@@ -100,6 +100,12 @@ Multiple gateways, each dedicated to certain types of clients, could be added in
 # API Design Considerations
 The current best practice for building REST APIs is called “API-first development” which includes identifying API stakeholders, identifying key services, and designing API contracts. This section is intended to serve as a checklist of API design elements that should be considered during the API contract detailed design phase. A clear understanding of the various stakeholders and the similarities and differences between their service requirements is assumed to be an input into the detailed design phase and should include an analysis based on the idea presented in [REST Data Services](#REST-Data-Services).
 
+## API Model
+To ensure stakeholders have a shared understanding of the API, DMS should develop a model of the API contract.
+- **Conceptualize** All stakeholders should be involved in creating a conceptual model of the API that will be translated into working software. The model should include language for any related surrounding processes: back-ground jobs, data aggregation processes, etc.   
+- **Define** Develop a common language of terms that will appear in the API. This reduces confusion caused by mental context switching when speaking to different audiences about the API.
+- **Resource** Using the common language, piece together what should be exposed via the API. Resources should emerge naturally from conversations with do- main experts. Start with top-level resources and work down the list. Take into consideration all the related near-term projects and assume some resources may only be exposed to a few individuals or systems with proper permissions. 
+
 ## API Operations
 HTTP defines a number of methods that assign semantic meaning to a request. Common HTTP methods used by most RESTful web APIs include:
 - **GET** retrieves a representation of the resource at the specified URI. The body of the response message contains the details of the requested resource.
@@ -147,3 +153,4 @@ The content of this document is completely derived from the following sources.
 - [Web Service](https://en.wikipedia.org/wiki/Web_service)
 - [REST API Security](https://stackoverflow.blog/2021/10/06/best-practices-for-authentication-and-authorization-for-rest-apis/)
 - [REST API Design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
+- [A Guide to Lifecycle Management for APIs](http://www2.smartbear.com/rs/smartbear/images/SmartBear-Apigee-Lifecycle-Management-ebook.pdf)
