@@ -18,6 +18,7 @@ This section outlines the general requirements. Additional requirements analysis
 - The interface and supporting infrastructure must provide remote access to NRAO and non-NRAO data sources.
 - The interface must support access to versioned data sources.
 - Access mechanisms to the interface must support identity and access management (IAM) best practices and utilize DMS IAM technologies.
+- There should be a spectrum of IAM options to support different client types.
 - The interface must support JSON-formatted responses.
 - The system is not required to support "Big Data"-scale volumes or velocities.
 - The infrastructure must support standard reliability mechanisms to provide and maintain reliable access to data sources. 
@@ -102,9 +103,9 @@ The current best practice for building REST APIs is called “API-first developm
 
 ## API Model
 To ensure stakeholders have a shared understanding of the API, DMS should develop a model of the API contract.
-- **Conceptualize** All stakeholders should be involved in creating a conceptual model of the API that will be translated into working software. The model should include language for any related surrounding processes: back-ground jobs, data aggregation processes, etc.   
+- **Conceptualize** All stakeholders should be involved in creating a conceptual model of the API that will be translated into working software. The model should include language for any related surrounding processes: back-ground jobs, heuristics calculations, data aggregation processes, etc.   
 - **Define** Develop a common language of terms that will appear in the API. This reduces confusion caused by mental context switching when speaking to different audiences about the API.
-- **Resource** Using the common language, piece together what should be exposed via the API. Resources should emerge naturally from conversations with do- main experts. Start with top-level resources and work down the list. Take into consideration all the related near-term projects and assume some resources may only be exposed to a few individuals or systems with proper permissions. 
+- **Resource** Using the common language, piece together what should be exposed via the API. Resources should emerge naturally from conversations with do- main experts. Start with top-level resources and work down the list. Take into consideration all the related near-term projects and assume some resources may only be exposed to a few individuals or systems with proper permissions and that the number of clients will increase over time. 
 
 ## API Operations
 HTTP defines a number of methods that assign semantic meaning to a request. Common HTTP methods used by most RESTful web APIs include:
@@ -141,7 +142,7 @@ Included below are the current versioning options to consider:
 - **Header versioning** Rather than appending the version number as a query string parameter, custom headers indicate the version of the resource. This approach requires that the client application adds the appropriate header to any requests. The code handling the client request could use a default value (version 1) if the version header is omitted.
 
 ## Authentication and Authorization
-DMS plans to adopt a zero trust architecture to satisfy evolving IAM requirements. In the intermediate term, this involves the use of Red Hat Identity Management (based on FreeIPA) and Red Hat SSO (based on Keycloak) which support standard protocols including OpenId Connect, OAuth2, SAML, etc. NRAO data operations interfaces must utilize DMS IAM technologies. DMS maintains a strong preference for leveraging existing IAM libraries when possible and custom development in this area should only be a last resort. Additionally, the API contract detailed design phase should include an analysis of the authentication and authorization requirements for people and programs to access data sources. Finally, the logical design should be updated to include the use of DMS IAM technologies and the IAM parts of the API contract detailed design.
+DMS plans to adopt a zero trust architecture to satisfy evolving IAM requirements. In the intermediate term, this involves the use of Red Hat Identity Management (based on FreeIPA) and Red Hat SSO (based on Keycloak) which support standard protocols including OpenId Connect, OAuth2, SAML, etc. NRAO data operations interfaces must utilize DMS IAM technologies. DMS maintains a strong preference for leveraging existing IAM libraries when possible and custom development in this area should only be a last resort. Additionally, the API contract detailed design phase should include an analysis of the authentication and authorization requirements for people and programs to access data sources. The analysis should consider how the use of different mechanisms (i.e. TLS, OAuth, API keys, etc.) could provide appropriate levels of security and authorization while minimizing client-side complexity. Finally, the logical design should be updated to include the use of DMS IAM technologies and the IAM parts of the API contract detailed design.
 
 # References
 The content of this document is completely derived from the following sources.
