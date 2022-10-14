@@ -105,7 +105,7 @@ The current best practice for building REST APIs is called “API-first developm
 To ensure stakeholders have a shared understanding of the API, DMS should develop a model of the API contract.
 - **Conceptualize** All stakeholders should be involved in creating a conceptual model of the API that will be translated into working software. The model should include language for any related surrounding processes: back-ground jobs, heuristics calculations, data aggregation processes, etc.   
 - **Define** Develop a common language of terms that will appear in the API. This reduces confusion caused by mental context switching when speaking to different audiences about the API.
-- **Resource** Using the common language, piece together what should be exposed via the API. Resources should emerge naturally from conversations with do- main experts. Start with top-level resources and work down the list. Take into consideration all the related near-term projects and assume some resources may only be exposed to a few individuals or systems with proper permissions and that the number of clients will increase over time. 
+- **Resource** Using the common language, piece together what should be exposed via the API. Resources should emerge naturally from conversations with domain experts. Start with top-level resources and work down the list. Take into consideration all the related near-term projects and assume some resources may only be exposed to a few individuals or systems with proper permissions and that the number of clients will increase over time. 
 
 ## API Operations
 HTTP defines a number of methods that assign semantic meaning to a request. Common HTTP methods used by most RESTful web APIs include:
